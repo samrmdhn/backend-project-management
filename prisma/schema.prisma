@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id          String     @id @default(uuid())
+  username    String
+  password    String?
+  name        String?
+  role        String
+  work_status Boolean?
+  work_long   Int?
+  work_start  DateTime?
+  work_end    DateTime?
+  handphone   String?
+  email       String?
+  photo       String?
+  age         Int?
+  address     String?
+  createdAt   DateTime?  @default(now())
+  updatedAt   DateTime?  @default(now()) @updatedAt
+  projects    Projects[]
+}
+
+model Projects {
+  id             String    @id @default(uuid())
+  client         String
+  name           String
+  budget         Int
+  project_status Boolean
+  project_start  DateTime
+  project_long   Int?
+  project_end    DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @default(now()) @updatedAt
+  users          Users[]
+}
