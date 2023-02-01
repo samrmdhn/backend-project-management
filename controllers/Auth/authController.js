@@ -1,5 +1,4 @@
-import prisma from "../../lib/prisma.js";
-import bcrypt from "bcrypt";
+import prisma from "../../lib/prisma.js";import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
@@ -59,7 +58,7 @@ export const login = async (req, res) => {
       },
       "iniSecretKey",
       {
-        expiresIn: "7d",
+        expiresIn: "1d",
       }
     );
 

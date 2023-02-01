@@ -27,9 +27,16 @@ model Users {
   projects    Projects[]
 }
 
+model Company {
+  id        String     @id @default(uuid())
+  name      String
+  createdAt DateTime?  @default(now())
+  updatedAt DateTime?  @default(now()) @updatedAt
+  projects  Projects[]
+}
+
 model Projects {
   id             String    @id @default(uuid())
-  client         String
   name           String
   budget         Int
   project_status Boolean
@@ -39,4 +46,6 @@ model Projects {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @default(now()) @updatedAt
   users          Users[]
+  Company        Company?  @relation(fields: [companyId], references: [id])
+  companyId      String?
 }
