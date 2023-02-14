@@ -1,4 +1,5 @@
-import jwt from "jsonwebtoken";export const verifyAdmin = (req, res, next) => {
+import jwt from "jsonwebtoken";
+export const verifyAdmin = (req, res, next) => {
   const { authorization } = req.headers;
 
   jwt.verify(

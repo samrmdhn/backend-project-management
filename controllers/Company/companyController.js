@@ -1,5 +1,4 @@
-import prisma from "../../lib/prisma.js";
-export const createCompany = async (req, res) => {
+import prisma from "../../lib/prisma.js";export const createCompany = async (req, res) => {
   const clientRandom = [
     "BNI",
     "BRI",
@@ -44,13 +43,34 @@ export const createCompany = async (req, res) => {
 };
 
 export const getCompany = async (req, res) => {
-  const company = await prisma.company.findMany();
+  const company = await prisma.company.findMany({
+    select: {
+      name: true,
+    },
+  });
+
+  const companyLength = await prisma.company.count();
+
+  const companyProject = await prisma.company.findMany({
+    select: {
+      name: true,
+      _count: {
+        select: {
+          projects: true,
+        },
+      },
+    },
+  });
 
   res.status(200);
   res.json({
     code: 200,
     status: "OK",
-    data: company,
+    message: "Success get company length",
+    data: {
+      company_total: companyLength,
+      projects_of_company: companyProject,
+    },
   });
 };
 
@@ -75,8 +95,9 @@ export const getCompanyById = async (req, res) => {
   res.status(200);
   res.json({
     code: 200,
-    length: projectLength,
+    status: "OK",
     message: "Succes get project",
+    projects_length: projectLength,
     data: company,
   });
 };

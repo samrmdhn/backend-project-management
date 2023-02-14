@@ -1,11 +1,7 @@
 import prisma from "../../lib/prisma.js";
 export const getProjects = async (req, res) => {
   try {
-    const projects = await prisma.projects.findMany({
-      include: {
-        users: true,
-      },
-    });
+    const projects = await prisma.projects.findMany({});
 
     const projectsLength = await prisma.projects.count();
 
@@ -128,7 +124,7 @@ export const searchProject = async (req, res) => {
     },
   };
 
-  //console.log(queryString);
+  console.log(queryString);
 
   //Pagination
   const page = req.query.page || 1;
@@ -165,10 +161,9 @@ export const searchProject = async (req, res) => {
 
     res.status(200);
     res.json({
-      message: "Success get data",
       code: 200,
+      message: "Success",
       length: projectLength,
-      pick: take_number,
       range: `Items ${range_start} - ${range_end} of ${projectLength}`,
       data: project,
     });
