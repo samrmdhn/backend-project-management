@@ -1,4 +1,5 @@
-import express from "express";import ProjectRoutes from "./routes/ProjectRoutes.js";
+import express from "express";
+import ProjectRoutes from "./routes/ProjectRoutes.js";
 import cors from "cors";
 
 const app = express();

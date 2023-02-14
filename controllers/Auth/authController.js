@@ -39,15 +39,19 @@ export const login = async (req, res) => {
     });
 
     if (!user) {
-      res.status(401);
-      res.json({ message: "Username or password did not match" });
+      res
+        .status(403)
+        .json({ message: "Username or password did not match" })
+        .end();
     }
 
     const checkPassword = await bcrypt.compare(password, user.password);
 
     if (!checkPassword) {
-      res.status(401);
-      res.json({ message: "Username or password did not match" });
+      res
+        .status(403)
+        .json({ message: "Username or password did not match" })
+        .end();
     }
 
     const token = jwt.sign(
